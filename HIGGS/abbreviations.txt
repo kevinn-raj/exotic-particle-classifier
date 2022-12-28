@@ -1,0 +1,7 @@
+_TANH : the used activation function
+_SUSY or HIGGS
+_number of layers
+_number of epochs
+_width : number of units in a hidden layer
+_do : dropout probability . (top means the dropout is applied to the top hidden layer)
+_raw, highlevel, all : low level, highlevel or complete features

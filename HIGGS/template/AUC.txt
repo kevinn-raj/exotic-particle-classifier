@@ -1,0 +1,17 @@
+AUC-ROC:
+
+HIGGS_layers4_Epoch20_width128_do0.01_all :			0.85210424892
+HIGGS_layers4_Epoch20_width128_do0.01_highlevel:	0.795210069457
+HIGGS_layers4_Epoch20_width128_do0.01_raw :			0.826251640375
+
+HIGGS_layers4_Epoch20_width128_do0.5top_all :		0.84492015988
+HIGGS_layers4_Epoch20_width128_do0.5top_highlevel:	0.794168585515
+HIGGS_layers4_Epoch20_width128_do0.5top_raw	:		0.826235323898
+
+HIGGS_layers4_Epoch20_width128_do0_all	:			0.852268136439
+HIGGS_layers4_Epoch20_width128_do0_highlevel	:	0.796253149409
+HIGGS_layers4_Epoch20_width128_do0_raw	:			0.834141787191
+
+HIGGS_layers4_Epoch200_width128_do0.5top_all	:	0.845310101893
+HIGGS_layers4_Epoch200_width128_do0.5top_highlevel:	0.793194071488
+HIGGS_layers4_Epoch200_width128_do0.5top_raw	:	0.820732418769

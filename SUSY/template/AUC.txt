@@ -1,0 +1,15 @@
+AUC-ROC:
+train_SUSY_layers4_Epoch20_width128_do0.01_raw :		0.874061543389
+train_SUSY_layers4_Epoch20_width128_do0.01_highlevel :	0.867197074046
+train_SUSY_layers4_Epoch20_width128_do0.01_all : 		0.876739342211
+
+train_SUSY_layers4_Epoch20_width128_do0_raw :			0.87466739152
+train_SUSY_layers4_Epoch20_width128_do0_highlevel :		0.867718878463
+train_SUSY_layers4_Epoch20_width128_do0_all :			0.877528850385
+
+train_SUSY_layers4_Epoch20_width128_do0.5top_raw :			0.873849498095
+train_SUSY_layers4_Epoch20_width128_do0.5top_highlevel :	0.867025951067
+train_SUSY_layers4_Epoch20_width128_do0.5top_all :			0.876895683365
+
+train_SUSY_layers4_Epoch200_width128_do0.5top_raw : 			0.873975681822
+no need to go over 20 epochs
