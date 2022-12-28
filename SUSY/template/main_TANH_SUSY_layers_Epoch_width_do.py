@@ -1,3 +1,6 @@
+import sys, os
+#  disable DEBUGGING information
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 import keras
 import tensorflow as tf
 from keras.models import Sequential
@@ -7,11 +10,52 @@ import pandas as pd
 import time
 
 
+import re
+
+"""
+Get the hyperparameters from the filename and the second (1) argument
+"""
+# Hyper-parameters
+benchmark = str(sys.argv[1])
+
+# Get the basename of the current file
+string = os.path.basename(sys.argv[0])
+
+# "layers" followed by some digits and a "_"
+patt_layers = 'layers(\d+)_'
+match = re.search(patt_layers, string)
+layers = int(match.group(1) if match else 0)
+
+# "Epoch" followed by some digits and a "_"
+patt_Epoch = 'Epoch(\d+)_'
+match = re.search(patt_Epoch, string)
+epoch = int(match.group(1) if match else 20)
+
+# "width" followed by some digits and a "_"
+patt_width = 'width(\d+)_'
+match = re.search(patt_width, string)
+width = int(match.group(1) if match else 64)
+
+# "do" (followed by a positive number < 1 or 
+# followed by 1 ) and ... 
+patt_dropout = 'do(\d+|0\.\d+|1)(top)?\w*.py'
+match = re.search(patt_dropout, string)
+dropout = float(match.group(1) if match else 0)
+
+patt_top = '(top)'
+match = re.search(patt_top, string)
+top = True if match else False
+
+print("Hyperparameters :")
+print(f"layers : {layers}\nepoch : {epoch}\nwidth : {width}\n\
+dropout : {dropout}\ntop : {top}")
+
+# The main training function
 def train_SUSY(layers=4, EPOCH=200, width=128, dropout=0.5, benchmark="raw",
                top=False):
     """
     # Hyper-parameters
-    layers : number of hidden layers
+    layers : number of hidden layers + the output layer
     EPOCH : number of training epochs
     width : number of units for each hidden layer
     dropout : dropout probability
@@ -65,12 +109,15 @@ def train_SUSY(layers=4, EPOCH=200, width=128, dropout=0.5, benchmark="raw",
 
         # hidden layers & input layer
         m.add(Dense(width, activation=activation_fn, input_shape=(input_n,)))
-        m.add(Dropout(dropout))
 
         for i in range(0, layers-1):
+        # add dropout if top is False 
+        # otherwise only add dropout on top hidden layer
+            if not top:
+                m.add(Dropout(dropout))
             m.add(Dense(width, activation=activation_fn))
-            m.add(Dropout(dropout))
-
+        
+        m.add(Dropout(dropout))
         # output layer
         m.add(Dense(1, activation=activation_fn))
         m.summary()
@@ -87,7 +134,7 @@ def train_SUSY(layers=4, EPOCH=200, width=128, dropout=0.5, benchmark="raw",
     t = time.time()
 
     # Path of the compressed dataset
-    path = r"G:\Documents\Memoir\Datas\SUSY.csv.gz"
+    path = r"../../../datasets/SUSY.csv.gz"
 
     # The datas
     datas = pd.read_csv(filepath_or_buffer=path,
