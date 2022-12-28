@@ -1,6 +1,3 @@
-# UCI Machine Learning Repository
-
-
 import keras
 import tensorflow as tf
 from keras.models import Sequential
@@ -8,7 +5,6 @@ from keras.layers.core import Dense, Dropout
 
 import pandas as pd
 import time
-import sys
 
 
 def train_SUSY(layers=4, EPOCH=200, width=128, dropout=0.5, benchmark="raw",
@@ -86,12 +82,14 @@ def train_SUSY(layers=4, EPOCH=200, width=128, dropout=0.5, benchmark="raw",
 
     # Data loading
     print("Loading data")
+    
+    # For calculating the data loading time
     t = time.time()
-    tables = []
 
     # Path of the compressed dataset
     path = r"G:\Documents\Memoir\Datas\SUSY.csv.gz"
 
+    # The datas
     datas = pd.read_csv(filepath_or_buffer=path,
                         low_memory=True, compression="gzip", usecols=usecols,
                         na_filter=False)
@@ -103,18 +101,12 @@ def train_SUSY(layers=4, EPOCH=200, width=128, dropout=0.5, benchmark="raw",
     x = datas.iloc[:, 1:].as_matrix()
     y = datas.iloc[:, 0].as_matrix()  # returns a 1D-array
 
-
-    # #   Encode the data to int if needed
-    # encoder = LabelEncoder()
-    # encoder.fit(y)
-    # encoded_y = encoder.transform(y)
-
     # Build the model
     # 	Filename
     home = '../../../Process'
-    log_dir = home + '\\logs\\SUSY\\TANH_model_SUSY_layers{}_Epoch{}_width{}_do{}_{}'
+    log_dir = home + r'/logs/SUSY/TANH_model_SUSY_layers{}_Epoch{}_width{}_do{}_{}'
     log_dir = log_dir.format(layers, EPOCH, width, dropout, benchmark)
-    filename = home + '\\saves\\SUSY\\TANH_model_SUSY_layers{}_Epoch{}_width{}_do{}_{}.h5'
+    filename = home + r'/saves/SUSY/TANH_model_SUSY_layers{}_Epoch{}_width{}_do{}_{}.h5'
     filename = filename.format(layers, EPOCH, width, dropout, benchmark)
 
     # 	Callbacks
@@ -123,8 +115,8 @@ def train_SUSY(layers=4, EPOCH=200, width=128, dropout=0.5, benchmark="raw",
     early_stop = keras.callbacks.EarlyStopping(monitor='loss', patience=500)
     save = keras.callbacks.ModelCheckpoint(filename, verbose=1, 
                         save_best_only=True, save_weights_only=False, period=1)
-
-    # 	model.fit(x_train, y_train, .....)
+    
+    # Fit the model
     model.fit(x, y, batch_size=batch_size, verbose=1,
               validation_split=validation_split, nb_epoch=EPOCH, 
               callbacks=[tb, early_stop, save])
