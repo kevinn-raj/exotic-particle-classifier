@@ -89,7 +89,11 @@ model.compile(optimizer='adam', loss='mse', metrics=['accuracy'])
 print("Loading data")
 t = time.time()
 tables = []
-datas = pd.read_csv(filepath_or_buffer=r"G:\Documents\Memoir\Datas\SUSY.csv.gz",
+
+# Path of the compressed dataset
+path = r"G:\Documents\Memoir\Datas\SUSY.csv.gz"
+
+datas = pd.read_csv(filepath_or_buffer=path,
                     low_memory=True, compression="gzip", usecols=usecols,
                     na_filter=False)
 print("Loading Time : {:6.6}s".format(time.time() - t))
