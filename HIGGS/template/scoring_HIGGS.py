@@ -47,7 +47,7 @@ if __name__ == '__main__':
         print("Loading data")
         t = time.time()
         tables = []
-        datas = pd.read_csv(filepath_or_buffer=r"F:\Documents\Memoir\Datas\HIGGS.csv.gz",
+        datas = pd.read_csv(filepath_or_buffer=r"../../datasets/HIGGS.csv.gz",
                             low_memory=True, compression="gzip", usecols=usecols,
                             na_filter=False)
 
@@ -64,7 +64,7 @@ if __name__ == '__main__':
 
             # Model
             # model_path = sys.argv[1]
-            model_path = r'K:\Documents\0.Archive\Datas\process\saves\HIGGS\\' + \
+            model_path = r'../../process/saves/HIGGS/' + \
                          'model_HIGGS_layers4_Epoch20_width128_do{do}_{bench}.h5'.format(bench=bench, do=do)
             model = keras.models.load_model(filepath=model_path)
 
@@ -80,7 +80,7 @@ if __name__ == '__main__':
             fpr, tpr, thresholds = metrics.roc_curve(y, pred)
             auc = metrics.auc(fpr, tpr)
 
-            output_path = r'K:\Documents\0.Archive\Datas\process\ROC\HIGGS\\' + \
+            output_path = r'../../process/saves/HIGGS/' + \
                           'ROC_model_HIGGS_layers4_Epoch20_width128_do{do}_{bench}.csv'.format(bench=bench, do=do)
             df = pd.DataFrame(dict(tpr=tpr, fpr=fpr))
             df.to_csv(path_or_buf=output_path, sep=',', index=False)

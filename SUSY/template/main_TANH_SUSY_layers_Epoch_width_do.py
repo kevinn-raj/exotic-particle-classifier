@@ -150,7 +150,7 @@ def train_SUSY(layers=4, EPOCH=200, width=128, dropout=0.5, benchmark="raw",
 
     # Build the model
     # 	Filename
-    home = '../../../Process'
+    home = '../../../process'
     log_dir = home + r'/logs/SUSY/TANH_model_SUSY_layers{}_Epoch{}_width{}_do{}_{}'
     log_dir = log_dir.format(layers, EPOCH, width, dropout, benchmark)
     filename = home + r'/saves/SUSY/TANH_model_SUSY_layers{}_Epoch{}_width{}_do{}_{}.h5'

@@ -44,7 +44,7 @@ if __name__ == '__main__':
         print("Loading data")
         t = time.time()
         tables = []
-        datas = pd.read_csv(filepath_or_buffer=r"F:\Documents\Memoir\Datas\SUSY.csv.gz",
+        datas = pd.read_csv(filepath_or_buffer=r"../../datasets/SUSY.csv.gz",
                             low_memory=True, compression="gzip", usecols=usecols,
                             na_filter=False)
 
@@ -58,13 +58,10 @@ if __name__ == '__main__':
 
             # Model
             # model_path = sys.argv[1]
-            model_path = r'K:\Documents\0.Archive\Datas\process\saves\SUSY\\' + \
+            model_path = r'../../Process/saves/SUSY/' + \
                          'model_SUSY_layers4_Epoch20_width128_do{do}_{bench}.h5'.format(bench=bench, do=do)
             model = keras.models.load_model(filepath=model_path)
 
-            # evaluate
-            # ev = model.evaluate(x, y)
-            # print('evaluate ', ev[0], ev[1])
 
             # predict
             pred = model.predict(x, verbose=1)[:, 0]
@@ -74,7 +71,7 @@ if __name__ == '__main__':
             fpr, tpr, thresholds = metrics.roc_curve(y, pred)
             auc = metrics.auc(fpr, tpr)
 
-            output_path = r'K:\Documents\0.Archive\Datas\process\ROC\SUSY\\' + \
+            output_path = r'../../Process/ROC/SUSY/' + \
                           'ROC_model_SUSY_layers4_Epoch20_width128_do{do}_{bench}.csv'.format(bench=bench, do=do)
             df = pd.DataFrame(dict(tpr=tpr, fpr=fpr))
             df.to_csv(path_or_buf=output_path, sep=',', index=False)
